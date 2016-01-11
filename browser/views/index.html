@@ -4,7 +4,8 @@
     <meta charset="UTF-8">
     <title>My Todo List App</title>
 </head>
-<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+<!--<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">-->
+<link rel="stylesheet" href="/bootstrap/dist/css/bootstrap.min.css">
 <body>
     <div ng-controller="ListCtrl">
         <h1>My Todos</h1>
@@ -14,7 +15,9 @@
         </div>
         <div >
             <ol>
-                <li ng-repeat="todo in todos track by $index">{{todo.todo}} <a>Edit </a><a>Delete</a></li>
+                <li ng-repeat="todo in todos track by $index">{{todo.todo}} <a ng-click="editTodo(todo)">Edit </a><a ng-click="deleteTodo(todo)">Delete</a>
+                    <input type="text" ng-model="todo.newTodoValue" ng-show="todo.editing"><button ng-show="todo.editing" ng-click="saveTodo(todo)">Save</button>
+                </li>
             </ol>
         </div>
     </div>

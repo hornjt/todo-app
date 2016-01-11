@@ -14,7 +14,11 @@ var TodoSchema = new Schema({
    todo: {
        type: String,
        required: true
-   }
+   },
+    editing: {
+        type: Boolean,
+        default: false
+    }
 });
 
 module.exports = mongoose.model('TodoList', TodoSchema);

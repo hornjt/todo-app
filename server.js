@@ -1,6 +1,6 @@
 var express = require('express');
 var app = express();
-var routes = require('./browser/routes');
+var routes = require('./browser/routes');   // Load the Express Router
 var path = require('path');
 var bodyParser = require('body-parser');
 var morgan = require('morgan');

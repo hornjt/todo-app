@@ -5,6 +5,20 @@ app.factory('ListFactory', function($http) {
         },
         newTodo: function(todo) {
             return $http.post('/newTodo', {todo: todo});
+        },
+        deleteTodoFromDb: function(todoToDelete) {
+            return $http({
+                url : "/removeTodo",
+                method: 'DELETE',
+                params: todoToDelete
+            });
+        },
+        editTodo: function(todoToEdit) {
+            return $http({
+                url: '/editTodo',
+                method: 'PUT',
+                params: todoToEdit
+            });
         }
     };
 })
