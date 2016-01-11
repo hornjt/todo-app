@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="JavaScriptLibraryMappings">
-    <file url="file://$PROJECT_DIR$/browser/routes/index.js" libraries="{Node.js Globals, Node.js v4.2.3 Core Modules}" />
+    <file url="file://$PROJECT_DIR$/browser/routes/index.js" libraries="{ECMAScript 6, Node.js Globals}" />
+    <file url="file://$PROJECT_DIR$/db/models/todo.model.js" libraries="{Node.js Globals}" />
     <file url="file://$PROJECT_DIR$/server.js" libraries="{Node.js Globals, Node.js v4.2.3 Core Modules}" />
   </component>
 </project>
