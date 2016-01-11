@@ -15,7 +15,7 @@
         </div>
         <div >
             <ol>
-                <li ng-repeat="todo in todos track by $index">{{todo.todo}} <a ng-click="editTodo(todo)">Edit </a><a ng-click="deleteTodo(todo)">Delete</a>
+                <li ng-repeat="todo in todos track by $index">{{todo.todo}} <a ng-click="todo.editing = !todo.editing">Edit </a><a ng-click="deleteTodo(todo)">Delete</a>
                     <input type="text" ng-model="todo.newTodoValue" ng-show="todo.editing"><button ng-show="todo.editing" ng-click="saveTodo(todo)">Save</button>
                 </li>
             </ol>

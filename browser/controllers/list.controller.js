@@ -30,13 +30,11 @@ app.controller('ListCtrl', function($scope, ListFactory) {
         $scope.refreshTodoList();
     };
 
-    $scope.editTodo = function(todo) {
-        todo.editing = !todo.editing;
-    };
-
     $scope.saveTodo = function(todo) {
-        //console.dir(todo);
-        //todo.todo = todo.newTodoValue;
+        if (!todo.newTodoValue) {   // check for blank entry
+            todo.editing = false;
+            return;
+        }
         ListFactory.editTodo(todo)
             .then(function() {
                 $scope.refreshTodoList();
