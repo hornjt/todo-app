@@ -36,7 +36,7 @@ app.controller('ListCtrl', function($scope, SingleListFactory) {
     };
 
     $scope.deleteTodo = function(todo) {
-        //console.dir(todoToDelete);
+        console.dir(todo);
         SingleListFactory.deleteTodoFromDb(todo);
         refreshTodoList();
     };

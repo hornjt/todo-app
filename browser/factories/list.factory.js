@@ -6,12 +6,14 @@ app.factory('SingleListFactory', function($http) {
         newTodo: function(todo) {
             return $http.post('/newTodo', {todo: todo});
         },
-        deleteTodoFromDb: function(todoToDelete) {
-            return $http({
-                url : "/removeTodo",
-                method: 'DELETE',
-                params: todoToDelete
-            });
+        deleteTodoFromDb: function(todo) {
+            console.dir(todo);
+            //return $http({
+            //    url : "/removeTodo",
+            //    method: 'DELETE',
+            //    params: todoToDelete
+            //});
+            return $http.delete('/removeTodo', todo);
         },
         //editTodo: function(todoToEdit) {
         //    return $http({

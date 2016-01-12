@@ -17,10 +17,9 @@ router.get('/', function(req, res, next) {
 });
 
 router.get('/todos', function(req, res, next) {
-    TodoItemModel.find({})
-        .then(function(allTodos) {
-            res.send(allTodos);
-        })
+
+    TodoItemModel.find()
+        .then(allTodos => res.send(allTodos))
         .then(null, next);
 });
 
@@ -29,28 +28,31 @@ router.post('/newTodo', function(req, res, next) {
     TodoItemModel.create({
         todoItem : req.body.todo
     })
-        .then(function(newTodo) {
-            console.log("response from mongo " + newTodo);
-            res.status(201).send(newTodo);
-        })
+        .then(newTodo => res.send(newTodo))
         .then(null, next);
 });
 
-router.delete('/removeTodo', function(req, res, next) {
-    var id = req.query._id;
+router.delete('/removeTodo/:id', function(req, res, next) {
+    var id = req.body._id;
+    console.log("req body" + req.body);
     //console.log(req.body, req.query, req.params);
-    TodoItemModel.findById(id, function(err, foundTodo) {
+    //TodoItemModel.findById(id, function(err, foundTodo) {
+    //    if (err) next(err);
+    //    else {
+    //        console.log(foundTodo);
+    //        foundTodo.remove()
+    //            .then(function(removed) {
+    //                console.log("This is removed " + removed);
+    //                res.send(removed);
+    //            })
+    //            .then(null, next);
+    //    }
+    //});
+
+    TodoItemModel.findByIdAndRemove(id, function(err, data) {
         if (err) next(err);
-        else {
-            console.log(foundTodo);
-            foundTodo.remove()
-                .then(function(removed) {
-                    console.log("This is removed " + removed);
-                    res.send(removed);
-                })
-                .then(null, next);
-        }
-    });
+        else res.send("deleted");
+    })
 });
 
 router.put('/editTodo', function(req, res, next) {
