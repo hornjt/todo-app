@@ -42,10 +42,10 @@ app.controller('ListCtrl', function($scope, SingleListFactory) {
     };
 
     $scope.saveTodo = function(todo) {
-        if (!todo.newTodoValue) {   // check for blank entry
-            todo.editing = false;
-            return;
-        }
+        //if (!todo.newTodoValue) {   // check for blank entry
+        //    todo.editing = false;
+        //    return;
+        //}
         saveToDatabase(todo);
     };
 

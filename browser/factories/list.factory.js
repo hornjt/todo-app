@@ -13,12 +13,15 @@ app.factory('SingleListFactory', function($http) {
                 params: todoToDelete
             });
         },
+        //editTodo: function(todoToEdit) {
+        //    return $http({
+        //        url: '/editTodo',
+        //        method: 'PUT',
+        //        params: todoToEdit
+        //    });
+        //}
         editTodo: function(todoToEdit) {
-            return $http({
-                url: '/editTodo',
-                method: 'PUT',
-                params: todoToEdit
-            });
+            return $http.put('/editTodo', todoToEdit);
         }
     };
 })

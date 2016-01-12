@@ -54,27 +54,15 @@ router.delete('/removeTodo', function(req, res, next) {
 });
 
 router.put('/editTodo', function(req, res, next) {
-    //console.log(req.body, req.query, req.params);
-    console.log("REQ QUERY");
-    console.log(req.query);
-    var id = req.query._id;
+    //console.log("Req body" ,req.body);
+    console.log(req.body);
+    var id = req.body._id;
+    req.body.editing = false;
 
-    TodoItemModel.findById(id, function(err, todo) {
+    TodoItemModel.findByIdAndUpdate(id, req.body, function(err, todo) {
         if (err) next(err);
-        else {
-            var isComplete = req.query.isCompleted;
-            var todoItem = req.query.newTodoValue || todo.todoItem;
-            todo.isCompleted = isComplete;
-            todo.todoItem = todoItem;
-            todo.editing = false;
-            todo.save()
-                .then(function() {
-                    res.sendStatus(201);
-                })
-                .then(null, next);
-            //res.sendStatus(201);
-        };
-    })
+        else res.sendStatus(201);
+    });
 });
 
 module.exports = router;
