@@ -9,6 +9,12 @@
 <body>
 <div class="container">
     <h1>My Todos</h1>
+    <ul class="nav nav-pills">
+        <li role="presentation" class="active"><a href="#">Current List</a></li>
+        <li role="presentation"><a href="#">Save List</a></li>
+        <li role="presentation"><a href="#">Load List</a></li>
+    </ul>
+    <br>
 
     <div ng-controller="ListCtrl">
         <div>
@@ -16,11 +22,13 @@
             <button ng-click="addTodo()">Add To List</button>
         </div>
         <div>
-            <ul class="list-group col-md-4">
-                <li class="list-group-item" ng-repeat="todo in todos track by $index">{{todo.todo}}
+            <ul class="list-group col-sm-7">
+                <li class="list-group-item" ng-repeat="todo in todos track by $index">{{todo.todoItem}}
                     <a ng-click="todo.editing = !todo.editing">Edit </a><a ng-click="deleteTodo(todo)">Delete</a>
                     <input type="text" ng-model="todo.newTodoValue" ng-show="todo.editing">
                     <button ng-show="todo.editing" ng-click="saveTodo(todo)">Save</button>
+                    <input ng-change="updateCompleted(todo)" ng-model="todo.isCompleted" style="float:right" type="checkbox">
+                    <p style="float:right">Completed</p>
                 </li>
             </ul>
         </div>

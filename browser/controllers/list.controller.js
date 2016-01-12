@@ -1,13 +1,20 @@
 /**
  * Created by Jon on 1/9/16.
  */
-app.controller('ListCtrl', function($scope, ListFactory) {
+app.controller('ListCtrl', function($scope, SingleListFactory) {
     $scope.todos = [];
 
-    $scope.refreshTodoList = function() {
-        ListFactory.getAllTodos()
+    var refreshTodoList = function() {
+        SingleListFactory.getAllTodos()
             .then(function(allTodos) {
                 $scope.todos = (allTodos.data);
+            });
+    };
+
+    var saveToDatabase = function(todo) {
+        SingleListFactory.editTodo(todo)
+            .then(function() {
+                refreshTodoList();
             });
     };
 
@@ -16,11 +23,11 @@ app.controller('ListCtrl', function($scope, ListFactory) {
             alert("Todo must not be empty");
         }
         else {
-            ListFactory.newTodo($scope.newTodo)
+            SingleListFactory.newTodo($scope.newTodo)
                 .then(function(response) {
                     //console.log(response);
                     $scope.newTodo = "";
-                    $scope.refreshTodoList();   // refresh list after adding new todo
+                    refreshTodoList();   // refresh list after adding new todo
                 })
                 .then(null, function(err) {
                     if (err) console.error(err);
@@ -30,8 +37,8 @@ app.controller('ListCtrl', function($scope, ListFactory) {
 
     $scope.deleteTodo = function(todo) {
         //console.dir(todoToDelete);
-        ListFactory.deleteTodoFromDb(todo);
-        $scope.refreshTodoList();
+        SingleListFactory.deleteTodoFromDb(todo);
+        refreshTodoList();
     };
 
     $scope.saveTodo = function(todo) {
@@ -39,11 +46,12 @@ app.controller('ListCtrl', function($scope, ListFactory) {
             todo.editing = false;
             return;
         }
-        ListFactory.editTodo(todo)
-            .then(function() {
-                $scope.refreshTodoList();
-            });
+        saveToDatabase(todo);
     };
 
-    $scope.refreshTodoList();   // Used to populate TodoList on first load
+    $scope.updateCompleted = function(todo) {
+        saveToDatabase(todo);
+    };
+
+    refreshTodoList();   // Used to populate TodoList on first load
 });

@@ -1,4 +1,4 @@
-app.factory('ListFactory', function($http) {
+app.factory('SingleListFactory', function($http) {
     return {
         getAllTodos: function() {
             return $http.get('/todos');

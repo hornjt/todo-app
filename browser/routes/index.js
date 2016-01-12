@@ -4,20 +4,20 @@
 var router = require('express').Router();
 var path = require('path');
 var pathToHtml = path.normalize(__dirname + '/../' + '/views/index.html');
-var TodoModel = require('../../db/models/todo.model.js');
+var TodoItemModel = require('../../db/models/todoItem.model.js');
 
-router.param('_id', function(req, res, next, id) {
-
-    req.body.id = id;
-    next();
-});
+//router.param('_id', function(req, res, next, id) {
+//
+//    req.body.id = id;
+//    next();
+//});
 
 router.get('/', function(req, res, next) {
     res.sendFile(pathToHtml);
 });
 
 router.get('/todos', function(req, res, next) {
-    TodoModel.find({})
+    TodoItemModel.find({})
         .then(function(allTodos) {
             res.send(allTodos);
         })
@@ -26,8 +26,8 @@ router.get('/todos', function(req, res, next) {
 
 router.post('/newTodo', function(req, res, next) {
     //console.log(req.body);
-    TodoModel.create({
-        todo : req.body.todo
+    TodoItemModel.create({
+        todoItem : req.body.todo
     })
         .then(function(newTodo) {
             console.log("response from mongo " + newTodo);
@@ -39,7 +39,7 @@ router.post('/newTodo', function(req, res, next) {
 router.delete('/removeTodo', function(req, res, next) {
     var id = req.query._id;
     //console.log(req.body, req.query, req.params);
-    TodoModel.findById(id, function(err, foundTodo) {
+    TodoItemModel.findById(id, function(err, foundTodo) {
         if (err) next(err);
         else {
             console.log(foundTodo);
@@ -55,14 +55,26 @@ router.delete('/removeTodo', function(req, res, next) {
 
 router.put('/editTodo', function(req, res, next) {
     //console.log(req.body, req.query, req.params);
+    console.log("REQ QUERY");
+    console.log(req.query);
     var id = req.query._id;
-    TodoModel.findByIdAndUpdate(id, {todo: req.query.newTodoValue}, function(err, data) {
+
+    TodoItemModel.findById(id, function(err, todo) {
         if (err) next(err);
         else {
-            console.log(data);
-            res.send(data);
-        }
-    });
+            var isComplete = req.query.isCompleted;
+            var todoItem = req.query.newTodoValue || todo.todoItem;
+            todo.isCompleted = isComplete;
+            todo.todoItem = todoItem;
+            todo.editing = false;
+            todo.save()
+                .then(function() {
+                    res.sendStatus(201);
+                })
+                .then(null, next);
+            //res.sendStatus(201);
+        };
+    })
 });
 
 module.exports = router;
