@@ -12,16 +12,20 @@ app.controller('ListCtrl', function($scope, ListFactory) {
     };
 
     $scope.addTodo = function() {
-        //$scope.todos.push({todo: $scope.newTodo});
-        ListFactory.newTodo($scope.newTodo)
-            .then(function(response) {
-                //console.log(response);
-                $scope.newTodo = "";
-                $scope.refreshTodoList();   // refresh list after adding new todo
-            })
-            .then(null, function(err) {
-                if (err) console.error(err);
-            });
+        if (!$scope.newTodo) {
+            alert("Todo must not be empty");
+        }
+        else {
+            ListFactory.newTodo($scope.newTodo)
+                .then(function(response) {
+                    //console.log(response);
+                    $scope.newTodo = "";
+                    $scope.refreshTodoList();   // refresh list after adding new todo
+                })
+                .then(null, function(err) {
+                    if (err) console.error(err);
+                });
+        }
     };
 
     $scope.deleteTodo = function(todo) {

@@ -7,20 +7,25 @@
 <!--<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">-->
 <link rel="stylesheet" href="/bootstrap/dist/css/bootstrap.min.css">
 <body>
+<div class="container">
+    <h1>My Todos</h1>
+
     <div ng-controller="ListCtrl">
-        <h1>My Todos</h1>
         <div>
             <input type="text" ng-model="newTodo">
             <button ng-click="addTodo()">Add To List</button>
         </div>
-        <div >
-            <ol>
-                <li ng-repeat="todo in todos track by $index">{{todo.todo}} <a ng-click="todo.editing = !todo.editing">Edit </a><a ng-click="deleteTodo(todo)">Delete</a>
-                    <input type="text" ng-model="todo.newTodoValue" ng-show="todo.editing"><button ng-show="todo.editing" ng-click="saveTodo(todo)">Save</button>
+        <div>
+            <ul class="list-group col-md-4">
+                <li class="list-group-item" ng-repeat="todo in todos track by $index">{{todo.todo}}
+                    <a ng-click="todo.editing = !todo.editing">Edit </a><a ng-click="deleteTodo(todo)">Delete</a>
+                    <input type="text" ng-model="todo.newTodoValue" ng-show="todo.editing">
+                    <button ng-show="todo.editing" ng-click="saveTodo(todo)">Save</button>
                 </li>
-            </ol>
+            </ul>
         </div>
     </div>
+</div>
 </body>
 <script src="/jquery/dist/jquery.js"></script>
 <script src="/bootstrap/dist/js/bootstrap.js"></script>
