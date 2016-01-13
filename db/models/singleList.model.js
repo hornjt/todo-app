@@ -12,9 +12,6 @@ db.once('open', function() {
 var Schema = mongoose.Schema;
 
 var TodoListItemSchema = new Schema({
-   //number: {
-   //    type: Number
-   //},
    todoItem: {
        type: String,
        required: true

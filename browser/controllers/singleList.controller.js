@@ -1,7 +1,7 @@
 /**
  * Created by Jon on 1/9/16.
  */
-app.controller('ListCtrl', function($scope, SingleListFactory) {
+app.controller('SingleListCtrl', function($scope, SingleListFactory) {
     $scope.todos = [];
 
     var refreshTodoList = function() {
@@ -24,10 +24,9 @@ app.controller('ListCtrl', function($scope, SingleListFactory) {
         }
         else {
             SingleListFactory.newTodo($scope.newTodo)
-                .then(function(response) {
-                    //console.log(response);
+                .then(response => {
                     $scope.newTodo = "";
-                    refreshTodoList();   // refresh list after adding new todo
+                    refreshTodoList();
                 })
                 .then(null, function(err) {
                     if (err) console.error(err);
@@ -36,20 +35,11 @@ app.controller('ListCtrl', function($scope, SingleListFactory) {
     };
 
     $scope.deleteTodo = function(todo) {
-        console.dir(todo);
         SingleListFactory.deleteTodoFromDb(todo);
         refreshTodoList();
     };
 
     $scope.saveTodo = function(todo) {
-        //if (!todo.newTodoValue) {   // check for blank entry
-        //    todo.editing = false;
-        //    return;
-        //}
-        saveToDatabase(todo);
-    };
-
-    $scope.updateCompleted = function(todo) {
         saveToDatabase(todo);
     };
 
