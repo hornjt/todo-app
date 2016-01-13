@@ -1,6 +1,8 @@
 var express = require('express');
 var app = express();
-var routes = require('./browser/routes');   // Load the Express Router
+var todosRouter = require('./browser/routes/api/todos');   // Load the todos Express Router
+var listsRouter = require('./browser/routes/api/lists');   // Load the todos Express Router
+var root = require('./browser/routes/root.js');   // Load the root Express Router
 var path = require('path');
 var bodyParser = require('body-parser');
 var morgan = require('morgan');
@@ -16,7 +18,9 @@ app.use(morgan('dev'));
 app.use(express.static('./node_modules'));
 app.use(express.static('./browser'));
 
-app.use('/', routes);
+app.use('/', root);
+app.use('/api/todos', todosRouter);
+app.use('/api/lists', listsRouter);
 
 app.listen(port, function () {
     console.log('Listening on port ' + port);

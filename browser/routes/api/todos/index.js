@@ -3,19 +3,14 @@
  */
 var router = require('express').Router();
 var path = require('path');
-var pathToHtml = path.normalize(__dirname + '/../' + '/views/index.html');
-var SingleList = require('../../db/models/singleList.model.js');
+var SingleList = require('../../../../db/models/singleList.model.js');
 
 router.param('id', function(req, res, next, id) {
     req.body.id = id;
     next();
 });
 
-router.get('/', function(req, res, next) {
-    res.sendFile(pathToHtml);
-});
-
-router.get('/todos', function(req, res, next) {
+router.get('/allTodos', function(req, res, next) {
 
     SingleList.find()
         .then(allTodos => res.send(allTodos))
