@@ -4,7 +4,7 @@
 
 var router = require('express').Router();
 var path = require('path');
-var pathToHtml = path.normalize(__dirname + '/../' + '/views/index.html');
+var pathToHtml = path.normalize(__dirname + '/../../' + 'browser/views/index.html');
 
 router.get('/', function(req, res, next) {
     res.sendFile(pathToHtml);

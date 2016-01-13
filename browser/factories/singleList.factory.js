@@ -13,4 +13,4 @@ app.factory('SingleListFactory', function($http) {
             return $http.put('/api/todos/editTodo', todoToEdit);
         }
     };
-})
+});

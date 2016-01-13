@@ -1,8 +1,8 @@
 var express = require('express');
 var app = express();
-var todosRouter = require('./browser/routes/api/todos');   // Load the todos Express Router
-var listsRouter = require('./browser/routes/api/lists');   // Load the todos Express Router
-var root = require('./browser/routes/root.js');   // Load the root Express Router
+var todosRouter = require('./routes/api/todos/index');   // Load the todos Express Router
+var listsRouter = require('./routes/api/lists/index');   // Load the todos Express Router
+var root = require('./routes/root.js');   // Load the root Express Router
 var path = require('path');
 var bodyParser = require('body-parser');
 var morgan = require('morgan');

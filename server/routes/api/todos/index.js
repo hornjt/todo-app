@@ -27,6 +27,7 @@ router.post('/newTodo', function(req, res, next) {
 });
 
 router.delete('/removeTodo/:id', function(req, res, next) {
+
     SingleList.findByIdAndRemove(req.body.id, function(err, data) {
         if (err) next(err);
         else {
